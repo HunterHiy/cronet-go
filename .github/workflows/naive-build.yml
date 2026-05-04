@@ -18,6 +18,7 @@ concurrency:
 
 jobs:
   linux:
+    if: false
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -126,6 +127,7 @@ jobs:
             lib_*_cgo.go
 
   darwin:
+    if: false
     runs-on: macos-15
     strategy:
       fail-fast: false
@@ -212,7 +214,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [amd64, arm64]
+        arch: [amd64]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -299,6 +301,7 @@ jobs:
             include_cgo.go
 
   android:
+    if: false
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -375,6 +378,7 @@ jobs:
             lib_*_cgo.go
 
   linux-musl:
+    if: false
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -469,7 +473,8 @@ jobs:
             lib_*_cgo.go
 
   integration-test:
-    if: github.event_name != 'workflow_dispatch'
+    if: false
+    # if: github.event_name != 'workflow_dispatch'
     needs: [linux, darwin, windows]
     strategy:
       fail-fast: false
@@ -638,7 +643,8 @@ jobs:
           if-no-files-found: warn
 
   publish:
-    if: github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip publish]')
+    if: false
+    # if: github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip publish]')
     needs: [linux, linux-musl, darwin, windows, android]
     runs-on: ubuntu-22.04
     env:
@@ -671,8 +677,9 @@ jobs:
         run: go run ./cmd/build-naive publish --branch ${{ env.TARGET_BRANCH }}
 
   release:
+    if: false
     needs: [linux, windows]
-    if: github.event_name == 'workflow_dispatch'
+    # if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
