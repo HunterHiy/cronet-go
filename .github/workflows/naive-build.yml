@@ -1,3 +1,15 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, cronet-go-proxy-a-plus]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
   windows:
     runs-on: windows-2022
     env:
