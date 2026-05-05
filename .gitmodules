@@ -1,5 +1,4 @@
 [submodule "naiveproxy"]
 	path = naiveproxy
 	url = https://github.com/HunterHiy/naiveproxy.git
-	branch = cronet-go-proxy-a-plus
-
+	branch = cronet-go
